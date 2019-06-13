@@ -1,8 +1,17 @@
 # 🍋Lemon🍋
 
-> **基于numpy的基本机器学习算法实现**
+> **基于numpy的基本机器学习算法库**
 
-## 项目结构
+本项目起源于ZJU2019年春夏学期的《数据挖掘导论》课程作业。
+
+预计近期将会在个人博客同步更新项目中涉及的机器学习算法系列内容。
+
+## 目标：
+
+- 简单明了的API
+- 尽可能多的机器学习内容覆盖
+
+## Structure
 
 ```shell
 ➜  Lemon tree
@@ -32,22 +41,67 @@
                              # standerdization等缩放函数
 ```
 
-## 进度
+## API
+
+### Supervised
+
+- Class
+  - `LinearRegression`
+  - `LogisticRegression`
+  - `Perceptron`
+  - `SVM`
+  - `KNearest`
+  - `…`
+- Methods
+  - `fit(x: np.ndarray, y: np.ndarray, **kwargs) -> np.ndarray`
+  - `predict(x: np.ndarray, **kwargs) -> np.ndarray`
+  - `evaluate(x: np.ndarray, y: np.ndarray, **kwargs) -> tuple`
+  - `dump(dump_file: str) -> None`
+  - `load(dump_file: str) -> None`
+
+### Unsupervised
+
+- To be continued...
+
+### Utils
+
+- `batch`
+  - `batch(data: np.ndarray, y: np.ndarray, size: int, shuffle: bool = False) -> tuple`
+- `cross_validate`
+  - `k_fold(data: np.ndarray, y: np.ndarray, k: int, fit_func: callable, eval_func: callable, shuffle: bool = True) -> tuple`
+  - `leave_one_out(data: np.ndarray, y: np.ndarray, fit_func: callable, eval_func: callable, shuffle: bool = True) -> tuple`
+- `make_data`
+  - `linear(n: int, dim: int, rand_bound: float = 10., noisy: bool = False) -> tuple`
+  - `logistic(n: int, dim: int, rand_bound: float = 10., noisy: bool = False) -> tuple`
+  - `perceptron(n: int, dim: int, rand_bound: float = 10., noisy: bool = False) -> tuple`
+  - `svm(n: int, dim: int, rand_bound: float = 10., noisy: bool = False) -> tuple`
+  - `...`
+- `scaling`
+  - `std(data: np.ndarray)`
+  - `minmax(data: np.ndarray)`
+  - `mean(data: np.ndarray)`
+  - `unit(data: np.ndarray)`
+
+## Timeline
 
 - 2019.6.12
   - [x] Linear Regression
   - [x] Logistic Regression
   - [x] Perceptron
+  - [x] 基本工具类
 - 6.13
   - [x] SVM
   - [x] K-Nearest-Neighbor
+  - [x] 创建并完善测试脚本
 
 - 6.14
   - [ ] Bayes
+  - [ ] ……
 
 ## TODO
 
-- ==实现全部算法以及算法测试部分==
+- 实现全部算法以及算法测试部分（当前目标）
+
 - 补充Ridge和Lasso相关内容
 - 对于分类算法，目前默认实现为二分类，部分分类算法需要补充增加多分类实现
 - 增加多种损失函数及对应梯度计算方法实现
