@@ -4,7 +4,7 @@
 
 本项目起源于ZJU2019年春夏学期的《数据挖掘导论》课程作业。
 
-预计近期将会在个人博客同步更新项目中涉及的机器学习算法系列内容。
+预计近期将会在[个人博客](https://riroaki.github.io/)同步更新项目中涉及的机器学习算法系列内容。
 
 ## 目标：
 
@@ -88,15 +88,18 @@
   - [x] Linear Regression
   - [x] Logistic Regression
   - [x] Perceptron
-  - [x] 基本工具类
+  - [x] utils.scaling / batch / cross_validate
 - 6.13
-  - [x] SVM
+  - [x] Support Vector Machine
   - [x] K-Nearest-Neighbor
-  - [x] 创建并完善测试脚本
+  - [x] test script
+- 6.15
+  - [x] Bayes
 
-- 6.14
-  - [ ] Bayes
-  - [ ] ……
+- 6.16
+  - [ ] Decision Tree
+  - [ ] K-Means
+  - [ ] PCA
 
 ## TODO
 
