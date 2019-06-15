@@ -100,7 +100,7 @@ class Bayes(Model):
         # Get exponent for xj (0 < j < n)
         exponents = np.apply_along_axis(
             lambda row: np.float(np.matmul(row, inv).dot(row)), 1, diff)
-        likelihood = coef * exponents
+        likelihood = coef * np.exp(-0.5 * exponents)
         # Posterior = prior * likelihood / evidence (omitted)
         posterior = prior * likelihood
         return posterior

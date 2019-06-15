@@ -61,7 +61,7 @@ def test_bayes(n: int, dim: int,
                linear_: bool = False,
                noisy: bool = False) -> tuple:
     x, mean_dict, cov_dict, label = utils.make_data.bayes(n, dim, rand_bound,
-                                                          2, linear_, noisy)
+                                                          3, linear_, noisy)
     model = supervised.Bayes()
     losses, scores = utils.cross_validate.k_fold(x, label, 10,
                                                  model.fit,
@@ -76,12 +76,12 @@ def main():
 
     seed = int(time.time())
     np.random.seed(seed)
-    # print('\nLinear Regression:\n', test_linear(100, 12))
-    # print('\nLinear Regression: normal equation\n',
-    #       test_linear_norm_eq(100, 12))
-    # print('\nLogistic Regression:\n', test_logistic(2000, 12))
-    # print('\nPreceptron:\n', test_perceptron(1000, 12))
-    # print('\nSupport Vector Machine:\n', test_svm(1000, 12))
+    print('\nLinear Regression:\n', test_linear(100, 12))
+    print('\nLinear Regression: normal equation\n',
+          test_linear_norm_eq(100, 12))
+    print('\nLogistic Regression:\n', test_logistic(2000, 12))
+    print('\nPreceptron:\n', test_perceptron(1000, 12))
+    print('\nSupport Vector Machine:\n', test_svm(1000, 12))
     print('\nBayes:\n', test_bayes(1000, 12))
 
 
