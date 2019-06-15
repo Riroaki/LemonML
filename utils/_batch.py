@@ -5,8 +5,8 @@ def batch(data: np.ndarray, y: np.ndarray, size: int,
           shuffle: bool = False) -> tuple:
     """Make batches of input and output.
 
-    :param data: input data
-    :param y: true values
+    :param data: input data, shape = (n, dim)
+    :param y: true values, shape = (n,)
     :param size: number of data entry per batch
     :param shuffle: whether to get shuffled batches
     :return: batched input, batched y

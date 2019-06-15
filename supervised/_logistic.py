@@ -4,6 +4,8 @@ from utils import batch
 
 
 class LogisticRegression(LinearModel):
+    """Logistic regression model, binary classifier."""
+
     def __init__(self):
         super().__init__()
 

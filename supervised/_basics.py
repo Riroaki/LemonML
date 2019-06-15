@@ -14,8 +14,8 @@ class Model(ABC):
         """Train model and update model using gradient descent.
         Should preserve optimum model after loss is calculated.
 
-        :param x: input data
-        :param y: true values / labels of regression results
+        :param x: input data, shape = (n, dim)
+        :param y: true values / labels of regression results, shape = (n,)
         :param kwargs: parameters including learning rate,
         tolerance of gradients' sum, iteration bound, etc.
         :return: loss of predictions

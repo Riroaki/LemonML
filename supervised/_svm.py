@@ -4,6 +4,8 @@ from scipy.optimize import minimize
 
 
 class SVM(LinearModel):
+    """Support vector machine model, binary classifier."""
+
     def __init__(self):
         super().__init__()
 

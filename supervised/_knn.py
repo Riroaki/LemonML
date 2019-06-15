@@ -4,6 +4,8 @@ from supervised._basics import Model
 
 
 class KNearest(Model):
+    """K-Nearest-Neighbor model, multi-class classifier."""
+
     def __init__(self):
         self.__data = None
         self.__label = None

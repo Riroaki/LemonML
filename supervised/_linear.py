@@ -4,6 +4,8 @@ from utils import batch
 
 
 class LinearRegression(LinearModel):
+    """Linear regression model."""
+
     def __init__(self):
         super().__init__()
 

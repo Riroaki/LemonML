@@ -1,4 +1,10 @@
 import numpy as np
+from functools import partial
+
+"""Cross validation.
+Shape of input data: (n, dim)
+Shape of output y: (n,)
+"""
 
 
 def __split(data: np.ndarray, y: np.ndarray, k: int,
@@ -14,12 +20,12 @@ def __split(data: np.ndarray, y: np.ndarray, k: int,
     for start_idx in range(0, n, fold_size):
         end_idx = start_idx + fold_size
         if shuffle:
-            yield (data[indices[start_idx: end_idx]],
-                   y[indices[start_idx: end_idx]],
-                   np.concatenate((data[indices[0: start_idx]],
+            yield (np.concatenate((data[indices[0: start_idx]],
                                    data[indices[end_idx:]])),
                    np.concatenate((y[indices[0: start_idx]],
-                                   y[indices[end_idx:]])))
+                                   y[indices[end_idx:]])),
+                   data[indices[start_idx: end_idx]],
+                   y[indices[start_idx: end_idx]])
         else:
             yield (data[start_idx: end_idx],
                    y[start_idx: end_idx],
@@ -42,5 +48,6 @@ def k_fold(data: np.ndarray, y: np.ndarray, k: int,
 def leave_one_out(data: np.ndarray, y: np.ndarray,
                   fit_func: callable, eval_func: callable,
                   shuffle: bool = True) -> tuple:
-    """Leave-one-out cross validation."""
-    return k_fold(data, y, 1, fit_func, eval_func, shuffle)
+    """Leave-one-out cross validation: just use k = n."""
+    k = data.shape[0]
+    return k_fold(data, y, k, fit_func, eval_func, shuffle)

@@ -4,6 +4,8 @@ from utils import batch
 
 
 class Perceptron(LinearModel):
+    """Perceptron model, binary classifier."""
+
     def __init__(self):
         super().__init__()
 
