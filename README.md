@@ -8,42 +8,42 @@
 
 ## 目标：
 
-- 简单明了的API
-- 尽可能多的机器学习内容覆盖
+- 清晰易懂的代码和注释
+- 简单易用的API
+- 全面的机器学习算法
 
 ## Structure
 
-```shell
-➜  Lemon tree
-.
-├── README.md
-├── supervised        ## 有监督算法
-│   ├── __init__.py
-│   ├── _basics.py           # Model基类，后续可以添加其他基类
-│   ├── _bayes.py            # 贝叶斯分类
-│   ├── _knn.py              # k近邻分类
-│   ├── _linear.py           # 线性回归（基于梯度/基于normal equation）
-│   ├── _logistic.py         # 逻辑回归分类
-│   ├── _perceptron.py       # 感知机分类
-│   ├── _svm.py              # SVM分类
-│   └── _tree.py             # 决策树分类
-├── test.py           ## 测试脚本：用于测试各个模块功能
-├── unsupervised      ## 无监督算法
-│   ├── __init__.py
-│   ├── _kmeans.py           # k均值聚类
-│   └── _kmedoids.py         # k中心聚类
-└── utils             ## 工具函数
-    ├── __init__.py
-    ├── _batch.py            # 用于切分mini-batch
-    ├── _cross_validate.py   # 用于交叉验证，包括k折验证与留一验证
-    ├── _make_data.py        # 用于生成测试数据，检验算法正确性
-    └── _scaling.py          # 用于缩放初始值，包括min-max，mean，
-                             # standerdization等缩放函数
-```
+### 有监督类
+
+- 线性类
+  - 线性回归（基于梯度/基于normal equation）
+  - 逻辑回归分类
+  - 感知机分类
+  - SVM分类
+- 非线性类
+  - 贝叶斯分类
+  - k近邻分类
+  - 决策树分类
+
+### 无监督类
+
+- K-Means聚类
+- Spectral聚类
+- K-Medoids聚类
+- PCA主成分分析
+- SVD矩阵奇异值分解
+- ……
+
+### 工具函数
+
+- batch批量分割
+- scaling缩放（min-max/mean/standardizatioin/unit）
+- cross validation交叉验证（K-fold/Leave-one-out）
 
 ## API
 
-### Supervised
+### SupervisedModel
 
 - Class
   - `LinearRegression`
@@ -51,7 +51,7 @@
   - `Perceptron`
   - `SVM`
   - `KNearest`
-  - `…`
+  - `...`
 - Methods
   - `fit(x: np.ndarray, y: np.ndarray, **kwargs) -> np.ndarray`
   - `predict(x: np.ndarray, **kwargs) -> np.ndarray`
@@ -59,9 +59,14 @@
   - `dump(dump_file: str) -> None`
   - `load(dump_file: str) -> None`
 
-### Unsupervised
+### UnsupervisedModel
 
-- To be continued...
+- Class
+  - `KMeans`
+  - `Spectral`
+  - `...`
+- Methods
+  - `Clustering(x: np.ndarray, **kwargs) -> np.ndarray`
 
 ### Utils
 
@@ -77,10 +82,10 @@
   - `svm(n: int, dim: int, rand_bound: float = 10., noisy: bool = False) -> tuple`
   - `...`
 - `scaling`
-  - `std(data: np.ndarray)`
-  - `minmax(data: np.ndarray)`
-  - `mean(data: np.ndarray)`
-  - `unit(data: np.ndarray)`
+  - `std(data: np.ndarray) -> None`
+  - `minmax(data: np.ndarray) -> None`
+  - `mean(data: np.ndarray) -> None`
+  - `unit(data: np.ndarray) -> None`
 
 ## Timeline
 
@@ -100,8 +105,8 @@
 
 - 6.17
   - [ ] Spectral
-  - [ ] Decision Tree
   - [ ] PCA
+  - [ ] Decision Tree
 
 ## TODO
 
@@ -113,4 +118,4 @@
 - 增加boost等ensemble方法实现（基本目标：random forest）
 - 对线性模型，增加多种学习率优化方式，如adagrad等
 
-- 增加算法可视化……
+- 增加算法可视化
