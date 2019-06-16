@@ -1,3 +1,4 @@
+from functools import partial
 import numpy as np
 import time
 import supervised
@@ -70,6 +71,18 @@ def test_bayes(n: int, dim: int,
     return losses, scores
 
 
+def test_knn(n: int, dim: int, k: int = 5,
+             rand_bound: float = 10., noisy: bool = False) -> tuple:
+    x, _, _, label = utils.make_data.k_nearest(n, dim, rand_bound, 4,
+                                               noisy=noisy)
+    model = supervised.KNearest()
+    evaluate = partial(model.evaluate, k=k)
+    losses, scores = utils.cross_validate.k_fold(x, label, 10,
+                                                 model.fit, evaluate,
+                                                 shuffle=True)
+    return losses, scores
+
+
 def main():
     # I don't know why but, using rand_bound >= 20,
     # the model would fail to converge.
@@ -83,6 +96,7 @@ def main():
     print('\nPreceptron:\n', test_perceptron(1000, 12))
     print('\nSupport Vector Machine:\n', test_svm(1000, 12))
     print('\nBayes:\n', test_bayes(1000, 12))
+    print('\nK-Nearest-Neighbor:\n', test_knn(1000, 12))
 
 
 if __name__ == '__main__':

@@ -14,7 +14,7 @@ class KNearest(Model):
         # Lazy training for knn, no computations
         self.__data = x
         self.__label = label
-        class_count = int(np.unique(label))
+        class_count = len(np.unique(label))
         return class_count
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
