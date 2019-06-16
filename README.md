@@ -95,10 +95,12 @@
   - [x] test script
 - 6.15
   - [x] Bayes
-
 - 6.16
+  - [x] K-Means
+
+- 6.17
+  - [ ] Spectral
   - [ ] Decision Tree
-  - [ ] K-Means
   - [ ] PCA
 
 ## TODO
