@@ -1,5 +1,5 @@
 import numpy as np
-from supervised._basics import LinearModel
+from supervised._base import LinearModel
 from scipy.optimize import minimize
 
 

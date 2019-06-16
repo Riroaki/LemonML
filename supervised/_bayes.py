@@ -1,8 +1,8 @@
 import numpy as np
-from supervised._basics import Model
+from supervised._base import SupervisedModel
 
 
-class Bayes(Model):
+class Bayes(SupervisedModel):
     """Bayes model, multi-class (or binary) classifier.
     Bayes models include Gaussian, Multinomial, Bernoulli,
     however here I only implemented Gaussian.

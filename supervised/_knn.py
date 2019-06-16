@@ -1,9 +1,9 @@
 import numpy as np
 import scipy.stats
-from supervised._basics import Model
+from supervised._base import SupervisedModel
 
 
-class KNearest(Model):
+class KNearest(SupervisedModel):
     """K-Nearest-Neighbor model, multi-class classifier."""
 
     def __init__(self):

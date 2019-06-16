@@ -3,9 +3,10 @@ import pickle
 from abc import abstractmethod, ABC
 
 
-class Model(ABC):
-    """Abstract class for models of both regression and classifying.
-    Define basic operations of a model here:
+class SupervisedModel(ABC):
+    """Abstract class for models of supervised models:
+        regression and classifying.
+    Define basic operations of supervised model here:
         fit, predict, evaluate, and dump or load.
     """
 
@@ -56,7 +57,7 @@ class Model(ABC):
         self.__dict__.update(params)
 
 
-class LinearModel(Model, ABC):
+class LinearModel(SupervisedModel, ABC):
     """Abstract class for linear models, adding variables and related methods
     ONLY for inner calls.
     """
