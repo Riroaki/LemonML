@@ -30,9 +30,7 @@
 
 - K-Means聚类
 - Spectral聚类
-- K-Medoids聚类
 - PCA主成分分析
-- SVD矩阵奇异值分解
 - ……
 
 ### 工具函数
@@ -51,6 +49,7 @@
   - `Perceptron`
   - `SVM`
   - `KNearest`
+  - `DecisionTree`
   - `...`
 - Methods
   - `fit(x: np.ndarray, y: np.ndarray, **kwargs) -> np.ndarray`
@@ -64,6 +63,7 @@
 - Class
   - `KMeans`
   - `Spectral`
+  - `PCA`
   - `...`
 - Methods
   - `Clustering(x: np.ndarray, **kwargs) -> np.ndarray`
@@ -103,9 +103,9 @@
 - 6.16
   - [x] K-Means
 
-- 6.17
+- 6.19
   - [ ] Spectral
-  - [ ] PCA
+  - [x] Principle Component Analysis
   - [ ] Decision Tree
 
 ## TODO

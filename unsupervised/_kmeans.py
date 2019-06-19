@@ -9,7 +9,7 @@ class KMeans(UnsupervisedModel):
         self._iter_bound = 1e-6
         self._max_iter = 100
 
-    def clustering(self, x: np.ndarray, **kwargs) -> tuple:
+    def clustering(self, x: np.ndarray, k: int, **kwargs) -> tuple:
         """A fast implementation of k means clustering.
         Credit to Xinlei Chen, Deng Cai
         for more details, please refer to:
@@ -17,8 +17,7 @@ class KMeans(UnsupervisedModel):
         """
         n, p = x.shape
         # Init centeroids: randomly choose k rows of data, shape = (k, p)
-        assert 'k' in kwargs and isinstance(kwargs['k'], int)
-        k = kwargs['k']
+        assert 0 < k < n
         centeroids = self.__init_centeroids(x, k)
 
         # Start iterations
