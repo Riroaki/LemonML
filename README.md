@@ -4,7 +4,7 @@
 
 本项目起源于ZJU2019年春夏学期的《数据挖掘导论》课程作业。
 
-预计近期将会在[个人博客](https://riroaki.github.io/)同步更新项目中涉及的机器学习算法系列内容。
+近期也在个人博客的《机器学不动了》[专栏]([https://riroaki.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B8%8D%E5%8A%A8%E4%BA%86/](https://riroaki.github.io/categories/机器学不动了/))同步更新项目中涉及的机器学习算法系列内容。
 
 ## 目标：
 
@@ -102,11 +102,12 @@
   - [x] Bayes
 - 6.16
   - [x] K-Means
-
 - 6.19
-  - [ ] Spectral
+  - [x] Spectral
   - [x] Principle Component Analysis
-  - [ ] Decision Tree
+
+- 6.24
+  - [x] Decision Tree
 
 ## TODO
 

@@ -49,4 +49,3 @@ class Spectral(UnsupervisedModel):
                 if dists[i][j] <= threshold:
                     w[i][j] = 1
         return w
-
