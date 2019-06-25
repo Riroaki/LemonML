@@ -2,7 +2,7 @@
 
 > **基于numpy的基本机器学习算法库**
 
-本项目起源于ZJU2019年春夏学期的《数据挖掘导论》课程作业。
+本项目起源于ZJU2019年春夏学期的《数据挖掘导论》课程作业，代码上传在我的[另一个项目](https://github.com/Riroaki/DataMining-ZJU-19-Summer)。
 
 近期也在个人博客的《机器学不动了》[专栏]([https://riroaki.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B8%8D%E5%8A%A8%E4%BA%86/](https://riroaki.github.io/categories/机器学不动了/))同步更新项目中涉及的机器学习算法系列内容。
 
