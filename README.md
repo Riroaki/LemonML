@@ -14,7 +14,7 @@
 
 ## Structure
 
-### 有监督类
+### 有监督Supervised
 
 - 线性类
   - 线性回归（基于梯度/基于normal equation）
@@ -26,14 +26,25 @@
   - k近邻分类
   - 决策树分类
 
-### 无监督类
+### 无监督Unsupervised
 
 - K-Means聚类
 - Spectral聚类
 - PCA主成分分析
 - ……
 
-### 工具函数
+### 聚合Emsemble
+
+- Bagging
+  - Random Forest
+- Adaboost
+- ……
+
+### 神经网络NN
+
+- ……
+
+### 工具Utils
 
 - batch批量分割
 - scaling缩放（min-max/mean/standardizatioin/unit）
@@ -108,15 +119,17 @@
 
 - 6.24
   - [x] Decision Tree
+- 6.27
+  - [ ] Add multi-classifier support for binary-classifiers
+  - [ ] Add Ridge and Lasso support for linear classifiers
+  - [ ] Start Emsemble and Neural Network
 
 ## TODO
 
-- 实现全部算法以及算法测试部分（当前目标）
+- [ ] 充Ridge和Lasso相关内容（预计使用装饰器）
+- [ ] 目前部分分类算法为二分类，需要补充增加多分类实现
+- [ ] 增加多种损失函数及对应梯度计算方法实现
+- [ ] 增加boost等ensemble方法实现（基本目标：random forest）
+- [ ] 对线性模型，增加多种学习率优化方式，如adagrad等
 
-- 补充Ridge和Lasso相关内容
-- 对于分类算法，目前默认实现为二分类，部分分类算法需要补充增加多分类实现
-- 增加多种损失函数及对应梯度计算方法实现
-- 增加boost等ensemble方法实现（基本目标：random forest）
-- 对线性模型，增加多种学习率优化方式，如adagrad等
-
-- 增加算法可视化
+- [ ] 增加算法可视化

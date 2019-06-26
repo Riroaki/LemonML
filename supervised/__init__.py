@@ -4,3 +4,4 @@ from supervised._perceptron import Perceptron
 from supervised._svm import SVM
 from supervised._knn import KNearest
 from supervised._bayes import Bayes
+from supervised._multi_class import MultiClass
