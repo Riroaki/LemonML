@@ -1,8 +1,8 @@
 from enum import Enum
 import numpy as np
 from ._base import SupervisedModel
-from ._logistic import LogisticRegression
-from ._svm import SVM
+from ._logistic_regression import LogisticRegression
+from ._support_vector_machine import SVM
 from ._perceptron import Perceptron
 
 
