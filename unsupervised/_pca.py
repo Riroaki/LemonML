@@ -1,5 +1,5 @@
 import numpy as np
-from unsupervised._base import Decomposition
+from ._base import Decomposition
 
 
 class PCA(Decomposition):

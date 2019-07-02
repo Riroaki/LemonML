@@ -1,6 +1,6 @@
 import numpy as np
-from unsupervised._kmeans import KMeans
-from unsupervised._base import UnsupervisedModel
+from ._kmeans import KMeans
+from ._base import UnsupervisedModel
 
 
 class Spectral(UnsupervisedModel):

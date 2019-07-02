@@ -1,5 +1,5 @@
 import numpy as np
-from supervised._base import LinearModel
+from ._base import LinearModel
 from utils import batch
 
 

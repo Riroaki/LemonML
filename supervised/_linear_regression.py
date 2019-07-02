@@ -1,6 +1,6 @@
 import numpy as np
 from ._base import LinearModel
-from ._regularize import REGULARIZE, Regularizer
+from ._regularization import REGULARIZE, Regularizer
 from utils import batch
 
 

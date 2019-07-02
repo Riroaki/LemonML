@@ -1,5 +1,5 @@
 import numpy as np
-from unsupervised._base import UnsupervisedModel
+from ._base import UnsupervisedModel
 
 
 class KMeans(UnsupervisedModel):

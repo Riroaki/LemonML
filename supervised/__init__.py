@@ -1,7 +1,9 @@
-from supervised._linear import LinearRegression
-from supervised._logistic import LogisticRegression
-from supervised._perceptron import Perceptron
-from supervised._svm import SVM
-from supervised._knn import KNearest
-from supervised._bayes import Bayes
-from supervised._multi_class import MultiClass
+from ._linear_regression import LinearRegression
+from ._logistic_regression import LogisticRegression
+from ._perceptron import Perceptron
+from ._support_vector_machine import SVM
+from ._k_nearest import KNearest
+from ._bayes import Bayes
+from ._decision_tree import DecisionTree
+from ._multi_classifier import MultiClassifier
+from ._regularization import REGULARIZE, Regularizer
