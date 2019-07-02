@@ -1,13 +1,18 @@
 import numpy as np
-from supervised._base import LinearModel
+from ._base import LinearModel
+from ._regularize import Regularizer, REGULARIZE
 from utils import batch
 
 
 class LogisticRegression(LinearModel):
     """Logistic regression model, binary classifier."""
 
-    def __init__(self):
+    def __init__(self, regular: REGULARIZE = None):
         super().__init__()
+        if REGULARIZE is not None:
+            self.__regular = Regularizer(regular)
+        else:
+            self.__regular = None
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
         # Check labels: only containing 1 and 0
@@ -75,8 +80,8 @@ class LogisticRegression(LinearModel):
         pred_label[pred_label < 0] = 0
         return pred_label
 
-    @staticmethod
-    def _loss(pred_val: np.ndarray, true_label: np.ndarray) -> np.float:
+    # @staticmethod
+    def _loss(self, pred_val: np.ndarray, true_label: np.ndarray) -> np.float:
         # Use maximum likelihood (log-likelihood loss)
         # loss = 1 / n * (-y * log(wx + b) - (1 - y) * log(wx + b))
         # Here we need to care about the log zero and overflow warning...
@@ -86,6 +91,9 @@ class LogisticRegression(LinearModel):
         class1_loss = -true_label * np.log(mask_val)
         class0_loss = (1 - true_label) * np.log(1 - mask_val)
         loss = np.sum(class0_loss + class1_loss) / true_label.shape[0]
+        # Add regularized loss
+        if self.__regular is not None:
+            loss += self.__regular[self._w]
         return loss
 
     def _grad(self, x: np.ndarray, pred_val: np.ndarray,
@@ -96,4 +104,7 @@ class LogisticRegression(LinearModel):
         # Use simple gradient by multiplying learning rate and grad.
         grad_w *= self._learn_rate
         grad_b *= self._learn_rate
+        # Add regularized grad
+        if self.__regular is not None:
+            grad_w += self.__regular.grad(self._w)
         return grad_w, grad_b

@@ -1,5 +1,5 @@
 import numpy as np
-from supervised._base import SupervisedModel
+from ._base import SupervisedModel
 
 
 class Bayes(SupervisedModel):

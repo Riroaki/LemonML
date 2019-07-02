@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import stats
-from supervised._base import SupervisedModel
+from ._base import SupervisedModel
 
 
 class TreeNode(object):

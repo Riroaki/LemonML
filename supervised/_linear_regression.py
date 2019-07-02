@@ -1,13 +1,18 @@
 import numpy as np
-from supervised._base import LinearModel
+from ._base import LinearModel
+from ._regularize import REGULARIZE, Regularizer
 from utils import batch
 
 
 class LinearRegression(LinearModel):
     """Linear regression model."""
 
-    def __init__(self):
+    def __init__(self, regular: REGULARIZE = None):
         super().__init__()
+        if REGULARIZE is not None:
+            self.__regular = Regularizer(regular)
+        else:
+            self.__regular = None
 
     def fit(self, x: np.ndarray, y: np.ndarray, **kwargs) -> np.float:
         assert x.shape[0] == y.shape[0]
@@ -83,11 +88,13 @@ class LinearRegression(LinearModel):
         # NO labeling in regression.
         pass
 
-    @staticmethod
-    def _loss(pred_val: np.ndarray, true_val: np.ndarray) -> np.float:
+    def _loss(self, pred_val: np.ndarray, true_val: np.ndarray) -> np.float:
         # Use MSE loss
         loss = float(np.sum(np.power(pred_val - true_val, 2)))
         loss /= 2 * true_val.shape[0]
+        # Add regularized loss
+        if self.__regular is not None:
+            loss += self.__regular[self._w]
         return loss
 
     def _grad(self, x: np.ndarray, pred_val: np.ndarray,
@@ -98,4 +105,7 @@ class LinearRegression(LinearModel):
         # Use simple gradient by multiplying learning rate and grad.
         grad_w *= self._learn_rate
         grad_b *= self._learn_rate
+        # Add regularized grad
+        if self.__regular is not None:
+            grad_w += self.__regular.grad(self._w)
         return grad_w, grad_b
