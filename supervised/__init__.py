@@ -4,6 +4,6 @@ from ._perceptron import Perceptron
 from ._support_vector_machine import SVM
 from ._k_nearest import KNearest
 from ._bayes import Bayes
-from ._decision_tree import DecisionTree
-from ._multi_classifier import MultiClassifier
+from ._tree_id3 import ID3
+from ._tree_cart import CART
 from ._regularization import REGULARIZE, Regularizer

@@ -1,8 +1,9 @@
 import numpy as np
-from .._decision_tree import DecisionTree
+from .._tree_id3 import ID3
 from .._base import SupervisedModel
 
 
+# TODO
 class Adaboost(SupervisedModel):
     def __init__(self):
         pass

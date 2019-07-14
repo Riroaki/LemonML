@@ -1,9 +1,9 @@
 from enum import Enum
 import numpy as np
-from ._base import SupervisedModel
-from ._logistic_regression import LogisticRegression
-from ._support_vector_machine import SVM
-from ._perceptron import Perceptron
+from .._base import SupervisedModel
+from .._logistic_regression import LogisticRegression
+from .._support_vector_machine import SVM
+from .._perceptron import Perceptron
 
 
 class MULTICLS(Enum):
@@ -54,10 +54,10 @@ class MultiClassifier(SupervisedModel):
             # Choose one and mask all as rest
             # However, this is not implemented yet
             # because confidence is not implemented in base classifiers
-            raise NotImplementedError
+            raise NotImplementedError()
         else:
             # No such operation
-            raise NotImplementedError
+            raise NotImplementedError()
         return total_loss
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
@@ -81,16 +81,16 @@ class MultiClassifier(SupervisedModel):
         elif self.__option == MULTICLS.ONE_VERSUS_REST:
             # One-vs-Rest:
             # Needs to implement confidence in base classifiers...
-            raise NotImplementedError
+            raise NotImplementedError()
         else:
             # No such operation
-            raise NotImplementedError
+            raise NotImplementedError()
         return label_pred
 
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
         assert x.shape[0] == label.shape[0]
         pred_labels = self.predict(x)
         # Use 0-1 loss
-        loss = np.count_nonzero(pred_labels - label)
-        precision = loss / label.shape[0]
+        loss = np.count_nonzero(pred_labels != label)
+        precision = 1 - loss / label.shape[0]
         return precision, loss

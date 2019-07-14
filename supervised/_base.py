@@ -28,7 +28,7 @@ class SupervisedModel(ABC):
 
         :param x: input x
         :param kwargs: parameters for prediction, like k for knn
-        :return: regression values
+        :return: prediction values
         """
 
     @abstractmethod

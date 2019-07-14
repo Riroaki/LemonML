@@ -31,8 +31,7 @@ class KNearest(SupervisedModel):
 
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
         pred_label = self.predict(x, **kwargs)
-        precision = 1 - np.count_nonzero(pred_label - label) / x.shape[0]
-        # There should be no such loss for knn,
-        # so I simply use error rate to represent loss instead.
-        loss = 1 - precision
+        # Use 0-1 loss
+        loss = np.count_nonzero(pred_label != label)
+        precision = 1 - loss / x.shape[0]
         return precision, loss

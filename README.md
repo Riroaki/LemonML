@@ -1,46 +1,57 @@
 # 🍋Lemon🍋
 
-> **基于numpy的基本机器学习算法库**
+> **Basic Machine Learning / Deep Learning Library**
 > 
-> 算法介绍详见个人博客[《机器学不动了》专栏](https://riroaki.github.io/categories/机器学不动了/)
+> Implemented with numpy and scipy in python codes.
+> 
+> For more information, please refer to [my blog](https://riroaki.github.io/categories/机器学不动了/)
+
+## Requirements
+
+- python==3.6.8
+- numpy==1.15.4
+- scipy==1.2.1
 
 ## Structure
 
-### 有监督Supervised
+### Supervised
 
-- 线性类
-  - 线性回归（基于梯度/基于normal equation）
-  - 逻辑回归分类
-  - 感知机分类
-  - SVM分类
-- 非线性类
-  - 贝叶斯分类
-  - k近邻分类
-  - 决策树分类
-- 其他
-  - Regularizer正则项（L1/L2）
-  - MultiClassifier多分类
+- Linear
+  - Linear Regression
+  - Logistic Regression
+  - Perceptron
+  - Support Vector Machine
+- Non-linear
+  - Bayes
+  - K-Nearest Neighbor
+  - Decision Tree
+- Others
+  - Regularizer(L1/L2)
+  - MultiClassifier
 
-### 无监督Unsupervised
+### Unsupervised
 
-- K-Means聚类
-- Spectral聚类
-- PCA主成分分析
+- K-Means Clustering
+- Spectral Clustering
+- Principle Component Analysis
 
-### 聚合Emsemble
+### Emsemble
 
 - Random Forest
 - Adaboost
 
-### 神经网络NN
+### Neural Network
 
-- TODO
+- Fully Connect Layer
+- ...
+- Activation
+- Criterion
 
-### 工具Utils
+### Utils
 
-- batch批量分割
-- scaling缩放（min-max/mean/standardizatioin/unit）
-- cross validation交叉验证（K-fold/Leave-one-out）
+- Batch
+- Scaling
+- Cross Validation
 
 ## Timeline
 
@@ -61,14 +72,17 @@
   - [x] Spectral
   - [x] Principle Component Analysis
 - 6.24
-  - [x] Decision Tree
+  - [x] Decision Tree(ID3)
 - 7.2
   - [x] Multi-classifier
   - [x] Regularization
-  - [x] Random Forest
-  - [x] Adaboost
+- 7.13
+  - [x] Activation
+  - [x] Criterion
+  - [x] Fully Connected Layer
+  - [x] Fully Connected Neural Network Model
 
 ## TODO️
 
-- [ ] 算法可视化
-- [ ] 补充测试
+- [ ] Some codes lacks **TESTING**!!!
+- [ ] Finish ensemble、nn parts...

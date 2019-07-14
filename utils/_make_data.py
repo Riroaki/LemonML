@@ -1,6 +1,6 @@
 import numpy as np
 
-"""Make data for testing purpose.
+"""Make data for test purpose.
 For linear models:
     Shape of x: (n, dim)
     Shape of w: (n,)

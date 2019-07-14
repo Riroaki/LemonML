@@ -71,6 +71,7 @@ class Bayes(SupervisedModel):
         return pred_label
 
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
+        assert x.shape[0] == label.shape[0]
         pred_label = self.predict(x, **kwargs)
         # Calculate 0-1 loss
         loss = np.count_nonzero(pred_label - label)
