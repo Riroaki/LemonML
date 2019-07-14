@@ -39,9 +39,9 @@ class DecisionTree(SupervisedModel):
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
         assert x.shape[0] == label.shape[0]
         label_pred = self.predict(x)
-        precision = np.count_nonzero(label == label_pred)
-        # TODO: loss of DT
-        loss = 0.
+        # Use 0-1 loss
+        loss = np.count_nonzero(label != label_pred)
+        precision = 1 - loss / label.shape[0]
         return precision, loss
 
     def __build_tree(self, x: np.ndarray, label: np.ndarray,

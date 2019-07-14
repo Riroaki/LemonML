@@ -1,10 +1,4 @@
 import numpy as np
-from functools import partial
-
-"""Cross validation.
-Shape of input data: (n, dim)
-Shape of output y: (n,)
-"""
 
 
 def __split(data: np.ndarray, y: np.ndarray, k: int,

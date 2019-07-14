@@ -88,8 +88,7 @@ class MultiClassifier(SupervisedModel):
         return label_pred
 
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
-        categories = np.unique(label)
-        assert not np.isin(False, np.isin(categories, self.__categories))
+        assert x.shape[0] == label.shape[0]
         pred_labels = self.predict(x)
         # Use 0-1 loss
         loss = np.count_nonzero(pred_labels - label)
