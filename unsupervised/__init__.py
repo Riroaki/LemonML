@@ -1,3 +1,2 @@
-from ._kmeans import KMeans
-from ._pca import PCA
-from ._spectral import Spectral
+from .clustering import *
+from .decomposition import *

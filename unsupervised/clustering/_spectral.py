@@ -1,9 +1,9 @@
 import numpy as np
 from ._kmeans import KMeans
-from ._base import UnsupervisedModel
+from ._base import ClusteringModel
 
 
-class Spectral(UnsupervisedModel):
+class Spectral(ClusteringModel):
     def __init__(self):
         self._threshold = 0.1
         self._k_adjacency = 10

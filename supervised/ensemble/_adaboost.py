@@ -1,5 +1,4 @@
 import numpy as np
-from .._tree_id3 import ID3
 from .._base import SupervisedModel
 
 

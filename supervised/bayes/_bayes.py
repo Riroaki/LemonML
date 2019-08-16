@@ -1,5 +1,5 @@
 import numpy as np
-from ._base import SupervisedModel
+from supervised._base import SupervisedModel
 
 
 class Bayes(SupervisedModel):
@@ -29,13 +29,13 @@ class Bayes(SupervisedModel):
         all_class = np.unique(label)
         for c in all_class:
             group = x[label == c]
-            mean, cov = self.__param_gaussian(group)
+            mean, cov = self._param_gaussian(group)
             self._prior_dict[c] = group.shape[0] / n
             self._mean_dict[c] = mean
             self._cov_dict[c] = cov
 
         # Calculate the whole co-variance matrix
-        _, cov = self.__param_gaussian(x)
+        _, cov = self._param_gaussian(x)
         self._cov_all = cov
 
         # Calculate loss on x
@@ -61,7 +61,7 @@ class Bayes(SupervisedModel):
             else:
                 cov = self._cov_dict[c]
             prior = self._prior_dict[c]
-            current_prob = self.__posterior_gaussian(x, prior, mean, cov)
+            current_prob = self._posterior_gaussian(x, prior, mean, cov)
             prob.append(current_prob)
             label_list.append(c)
         # Get index of class having maximum probability for each x
@@ -80,7 +80,7 @@ class Bayes(SupervisedModel):
         return precision, loss
 
     @staticmethod
-    def __param_gaussian(x: np.ndarray) -> tuple:
+    def _param_gaussian(x: np.ndarray) -> tuple:
         """Estimate mean and variance."""
         mean = x.mean(axis=0)
         diff = x - mean
@@ -88,8 +88,8 @@ class Bayes(SupervisedModel):
         return mean, cov
 
     @staticmethod
-    def __posterior_gaussian(x: np.ndarray, prior: np.float,
-                             mean: np.ndarray, cov: np.ndarray) -> np.ndarray:
+    def _posterior_gaussian(x: np.ndarray, prior: np.float,
+                            mean: np.ndarray, cov: np.ndarray) -> np.ndarray:
         """Calculate posterior probability P(wi | x)."""
 
         # Calculate likelihood probability:

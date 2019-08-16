@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import stats
-from ._base import SupervisedModel
+from supervised._base import SupervisedModel
 
 
 class ID3Node(object):
@@ -55,10 +55,10 @@ class ID3(SupervisedModel):
     """Iterative Dichotomiser 3 decision tree."""
 
     def __init__(self):
-        self.__tree = None
-        self.__thres_gain = 0.1  # Lower bound of info gain for split
-        self.__thres_count = 2  # Lower bound of sample count for split
-        self.__alpha = 2.  # Loss parameter, large alpha for simple model
+        self._tree = None
+        self._thres_gain = 0.1  # Lower bound of info gain for split
+        self._thres_count = 2  # Lower bound of sample count for split
+        self._alpha = 2.  # Loss parameter, large alpha for simple model
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         assert x.shape[0] == label.shape[0]
@@ -66,22 +66,22 @@ class ID3(SupervisedModel):
         if 'alpha' in kwargs:
             assert isinstance(kwargs['alpha'], (int, float))
             assert kwargs['alpha'] > 0
-            self.__alpha = kwargs['alpha']
+            self._alpha = kwargs['alpha']
         p = x.shape[1]
         is_used = [False for _ in range(p)]
-        self.__tree = self.__build_tree(x, label, is_used)
+        self._tree = self._build_tree(x, label, is_used)
         # Pruning
         if 'pruning' in kwargs and kwargs['pruning'] is True:
             self.prune()
         # Calculate train loss
-        loss = self.__tree.loss
+        loss = self._tree.loss
         return loss
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
         # Predict each row's classifying result
         results = []
         for row in x:
-            curr_node = self.__tree
+            curr_node = self._tree
             while not curr_node.is_leaf:
                 value = row[curr_node.index]
                 curr_node = curr_node.child[value]
@@ -93,64 +93,64 @@ class ID3(SupervisedModel):
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
         assert x.shape[0] == label.shape[0]
         label_pred = self.predict(x)
-        loss = self.__tree.loss
+        loss = self._tree.loss
         precision = np.count_nonzero(label == label_pred) / label.shape[0]
         return precision, loss
 
     def prune(self) -> float:
         # Use post pruning, prune after tree is build.
         # Tend to choose simple model with large alpha
-        assert self.__tree is not None
+        assert self._tree is not None
         # TODO: needs to update loss each time we prune
-        return self.__tree.loss
+        return self._tree.loss
 
-    def __build_tree(self, x: np.ndarray, label: np.ndarray,
-                     is_used: list) -> ID3Node:
+    def _build_tree(self, x: np.ndarray, label: np.ndarray,
+                    is_used: list) -> ID3Node:
         # Build a DT
         # Calculate the information gain of left attributes
-        info_gain = self.__info_gain(x, label, is_used)
+        info_gain = self._info_gain(x, label, is_used)
         # End splitting if labels are purified
         # or no attributes to choose from
         # or no enough samples to split
         # or if info gain is less than lower bound
         if not np.isin(False, is_used) or \
                 len(np.unique(label)) == 1 or \
-                x.shape[0] <= self.__thres_count or \
-                info_gain < self.__thres_gain:
+                x.shape[0] <= self._thres_count or \
+                info_gain < self._thres_gain:
             is_leaf = True
             cls = stats.mode(label)
             count = x.shape[0]
-            leaf = ID3Node(-1, count, self.__alpha, is_leaf, cls)
+            leaf = ID3Node(-1, count, self._alpha, is_leaf, cls)
             return leaf
         # Choose the one with maximum info gain as next node
         attr_idx = int(np.argmax(info_gain))
         count = x.shape[0]
-        root = ID3Node(attr_idx, count, self.__alpha)
+        root = ID3Node(attr_idx, count, self._alpha)
         # Mark this attribute to be used
         is_used[attr_idx] = True
         attr = x[:, attr_idx]
         for val in np.unique(attr):
             # Build tree recursively
-            node = self.__build_tree(x[attr == val], label[attr == val],
-                                     is_used)
+            node = self._build_tree(x[attr == val], label[attr == val],
+                                    is_used)
             # Register node's relations
             node.parent = root
             root.child[val] = node
         return root
 
     @staticmethod
-    def __entropy(label: np.ndarray) -> float:
+    def _entropy(label: np.ndarray) -> float:
         """Calculate information entropy for a sequence."""
         cls, count = np.unique(label, return_counts=True)
         count /= label.shape[0]
         entropy = np.float(-np.sum(count * np.log(count) / np.log(2)))
         return entropy
 
-    def __info_gain(self, data: np.ndarray, label: np.ndarray,
-                    is_used: list) -> np.ndarray:
+    def _info_gain(self, data: np.ndarray, label: np.ndarray,
+                   is_used: list) -> np.ndarray:
         """Calculate information gain for each attributes."""
         n, p = data.shape
-        entropy_total = self.__entropy(label)
+        entropy_total = self._entropy(label)
         entropy_cond = np.zeros(p)
         for idx in range(p):
             # Check whether this attribute has been used to create a node
@@ -158,7 +158,7 @@ class ID3(SupervisedModel):
                 attr = data[:, idx]
                 # Calculate conditional entropy for current attributes
                 for val, count in np.unique(attr, return_counts=True):
-                    entropy_cond[idx] -= count / n * self.__entropy(
+                    entropy_cond[idx] -= count / n * self._entropy(
                         label[attr == val])
         info_gain = entropy_total - entropy_cond
         return info_gain

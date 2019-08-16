@@ -1,9 +1,9 @@
 from enum import Enum
 import numpy as np
 from .._base import SupervisedModel
-from .._logistic_regression import LogisticRegression
-from .._support_vector_machine import SVM
-from .._perceptron import Perceptron
+from supervised.linear._logistic_regression import LogisticRegression
+from supervised.linear._support_vector_machine import SVM
+from supervised.linear._perceptron import Perceptron
 
 
 class MULTICLS(Enum):

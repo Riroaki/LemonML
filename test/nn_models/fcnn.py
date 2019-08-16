@@ -1,7 +1,7 @@
 import numpy as np
-from .._activation import SigmoidActivation
-from .._base import Module, Criterion
-from .._fully_connect import FullyConnectedLayer
+from nn._activation import SigmoidActivation
+from nn._base import Module, Criterion
+from nn._fully_connect import FullyConnectedLayer
 
 
 class FullyConnectNN(Module):

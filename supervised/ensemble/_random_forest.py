@@ -1,5 +1,4 @@
 import numpy as np
-from .._tree_cart import CART
 from .._base import SupervisedModel
 
 

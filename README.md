@@ -13,45 +13,68 @@
 - scipy==1.2.1
 
 ## Structure
-
-### Supervised
-
-- Linear
-  - Linear Regression
-  - Logistic Regression
-  - Perceptron
-  - Support Vector Machine
-- Non-linear
-  - Bayes
-  - K-Nearest Neighbor
-  - Decision Tree
-- Others
-  - Regularizer(L1/L2)
-  - MultiClassifier
-
-### Unsupervised
-
-- K-Means Clustering
-- Spectral Clustering
-- Principle Component Analysis
-
-### Emsemble
-
-- Random Forest
-- Adaboost
-
-### Neural Network
-
-- Fully Connect Layer
-- ...
-- Activation
-- Criterion
-
-### Utils
-
-- Batch
-- Scaling
-- Cross Validation
+```
+.
+├── LICENSE
+├── README.md
+├── nn
+│   ├── __init__.py
+│   ├── _activation.py
+│   ├── _base.py
+│   ├── _criterion.py
+│   └── _fully_connect.py
+├── supervised
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-36.pyc
+│   ├── _base.py
+│   ├── bayes
+│   │   ├── __init__.py
+│   │   └── _bayes.py
+│   ├── ensemble
+│   │   ├── __init__.py
+│   │   ├── _adaboost.py
+│   │   ├── _multi_classifier.py
+│   │   └── _random_forest.py
+│   ├── knn
+│   │   ├── __init__.py
+│   │   └── _k_nearest.py
+│   ├── linear
+│   │   ├── __init__.py
+│   │   ├── _base.py
+│   │   ├── _linear_regression.py
+│   │   ├── _logistic_regression.py
+│   │   ├── _perceptron.py
+│   │   ├── _regularization.py
+│   │   └── _support_vector_machine.py
+│   └── tree
+│       ├── __init__.py
+│       ├── _tree_cart.py
+│       └── _tree_id3.py
+├── test
+│   ├── nn_models
+│   │   └── fcnn.py
+│   └── test_supervised.py
+├── unsupervised
+│   ├── __init__.py
+│   ├── clustering
+│   │   ├── __init__.py
+│   │   ├── _base.py
+│   │   ├── _kmeans.py
+│   │   └── _spectral.py
+│   └── decomposition
+│       ├── __init__.py
+│       ├── _base.py
+│       └── _pca.py
+└── utils
+    ├── __init__.py
+    ├── __pycache__
+    │   └── __init__.cpython-36.pyc
+    ├── _batch.py
+    ├── _cross_validate.py
+    ├── _make_data.py
+    └── _scaling.py
+```
 
 ## Timeline
 
@@ -81,6 +104,11 @@
   - [x] Criterion
   - [x] Fully Connected Layer
   - [x] Fully Connected Neural Network Model
+- 8.17
+  - [x] Improve project structure
+  - [ ] Decision Tree(CART)
+  - [ ] Random Forest
+  - [ ] Adaboost
 
 ## TODO️
 

@@ -1,31 +1,31 @@
 import numpy as np
 import scipy.stats
-from ._base import SupervisedModel
+from .._base import SupervisedModel
 
 
 class KNearest(SupervisedModel):
     """K-Nearest-Neighbor model, multi-class classifier."""
 
     def __init__(self):
-        self.__data = None
-        self.__label = None
+        self._data = None
+        self._label = None
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.int:
         # Lazy training for knn, no computations
-        self.__data = x
-        self.__label = label
+        self._data = x
+        self._label = label
         class_count = len(np.unique(label))
         return class_count
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
-        assert self.__data is not None and self.__label is not None
-        assert 'k' in kwargs and kwargs['k'] < self.__data.shape[0]
+        assert self._data is not None and self._label is not None
+        assert 'k' in kwargs and kwargs['k'] < self._data.shape[0]
         k = kwargs['k']
         pred_label = np.zeros(x.shape[0])
         for i, xi in enumerate(x):
-            dist = np.power(self.__data - xi, 2).sum(axis=1)
+            dist = np.power(self._data - xi, 2).sum(axis=1)
             top_idx = np.argsort(dist)[: k]
-            top_label = self.__label[top_idx]
+            top_label = self._label[top_idx]
             pred_label[i] = scipy.stats.mode(top_label)[0][0]
         return pred_label
 

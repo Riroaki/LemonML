@@ -1,8 +1,8 @@
 import numpy as np
-from ._base import UnsupervisedModel
+from ._base import ClusteringModel
 
 
-class KMeans(UnsupervisedModel):
+class KMeans(ClusteringModel):
     """K Means clustering model."""
 
     def __init__(self):

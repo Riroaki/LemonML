@@ -83,7 +83,7 @@ def test_knn(n: int, dim: int, k: int = 5,
     return losses, scores
 
 
-def main():
+def test():
     # I don't know why but, using rand_bound >= 20,
     # the model would fail to converge.
 
@@ -100,4 +100,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    test()

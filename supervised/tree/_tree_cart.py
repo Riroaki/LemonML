@@ -1,22 +1,25 @@
 import numpy as np
-from ._base import SupervisedModel
+from supervised._base import SupervisedModel
 
 
-# TODO
 class CARTNode(object):
     """Node of Classication And Regression Tree."""
 
-    def __init__(self):
-        pass
+    def __init__(self, col_index: int, is_discrete: bool, value: any):
+        self.col_index = col_index
+        self.is_discrete = is_discrete
+        self.value = value
+        self.left_child = None
+        self.right_child = None
 
 
 class CART(SupervisedModel):
-    """Classication And Regression Tree."""
+    """Classication And Regression Tree (classification version)."""
 
     def __init__(self):
         self.__tree = None
-        self.__thres_count = 2  # Lower bound of sample count for split.
-        self.__gini_threshold = 0.5  # Lower bound of gini gain for split.
+        # self.__thres_count = 2  # Lower bound of sample count for split.
+        # self.__gini_threshold = 0.5  # Lower bound of gini gain for split.
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
         n, p = x.shape
@@ -25,18 +28,16 @@ class CART(SupervisedModel):
         if 'discrete_attrs' in kwargs:
             assert isinstance(kwargs['discrete_attrs'], list)
             is_discrete[kwargs['discrete_attrs']] = 1
-        self.__tree = self.__build_tree(x, label, is_discrete)
+        # Indices of attributes
+        attributes_index = list(range(p))
+        while len(attributes_index) > 0:
+            pass
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
         pass
 
     def evaluate(self, x: np.ndarray, label: np.ndarray, **kwargs) -> tuple:
         pass
-
-    def __build_tree(self, x: np.ndarray, label: np.ndarray,
-                     is_used: np.ndarray) -> CARTNode:
-        if not np.isin(False, is_used) or label.shape[0] <= self.__count_threshold:
-            leaf = CARTNode()
 
     @staticmethod
     def __gini(label: np.ndarray) -> float:
