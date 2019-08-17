@@ -1,9 +1,7 @@
 from enum import Enum
 import numpy as np
 from .._base import SupervisedModel
-from supervised.linear._logistic_regression import LogisticRegression
-from supervised.linear._support_vector_machine import SVM
-from supervised.linear._perceptron import Perceptron
+from . import LogisticRegression, SVM, Perceptron
 
 
 class MULTICLS(Enum):
@@ -14,32 +12,32 @@ class MULTICLS(Enum):
 class MultiClassifier(SupervisedModel):
     """Additional class for multi-classification support."""
 
-    __binary_classifiers = {LogisticRegression, SVM, Perceptron}
+    _binary_classifiers = {LogisticRegression, SVM, Perceptron}
 
     def __init__(self, cls: type, option: MULTICLS):
         # Only for binary classifiers
-        assert cls in self.__binary_classifiers
-        self.__option = option
-        self.__cls = cls
-        self.__categories = None
-        self.__models = {}
+        assert cls in self._binary_classifiers
+        self._option = option
+        self._cls = cls
+        self._categories = None
+        self._models = {}
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
         # Get catogorical variables
         categories = np.unique(label)
         k = len(categories)
         # Reinitialize models if categories are not all recorded
-        if not np.isin(False, np.isin(categories, self.__categories)):
-            self.__models = {}
-            self.__categories = categories
+        if not np.isin(False, np.isin(categories, self._categories)):
+            self._models = {}
+            self._categories = categories
         total_loss = 0.
-        if self.__option == MULTICLS.ONE_VERSUS_ONE:
+        if self._option == MULTICLS.ONE_VERSUS_ONE:
             # One-vs-One
             # Choose pairs and form k(k - 1) / 2 classifiers.
             for i in range(k):
                 for j in range(i + 1, k):
                     ci, cj = categories[i], categories[j]
-                    model: SupervisedModel = self.__cls()
+                    model: SupervisedModel = self._cls()
                     # Select pair of two class
                     x_pair = x[label == ci or label == cj].copy()
                     label_pair = label[label == ci or label == cj].copy()
@@ -48,8 +46,8 @@ class MultiClassifier(SupervisedModel):
                     label_pair[label_pair == cj] = -1
                     # Feed model with data and save
                     total_loss += model.fit(x_pair, label_pair)
-                    self.__models[ci][cj] = model
-        elif self.__option == MULTICLS.ONE_VERSUS_REST:
+                    self._models[ci][cj] = model
+        elif self._option == MULTICLS.ONE_VERSUS_REST:
             # One-vs-Rest
             # Choose one and mask all as rest
             # However, this is not implemented yet
@@ -61,14 +59,14 @@ class MultiClassifier(SupervisedModel):
         return total_loss
 
     def predict(self, x: np.ndarray, **kwargs) -> np.ndarray:
-        if self.__option == MULTICLS.ONE_VERSUS_ONE:
+        if self._option == MULTICLS.ONE_VERSUS_ONE:
             # One-vs-One: vote
-            k = len(self.__categories)
+            k = len(self._categories)
             vote_bins = np.zeros(x.shape[0], k)
             for i in range(k):
                 for j in range(i + 1, k):
-                    ci, cj = self.__categories[i], self.__categories[j]
-                    model: SupervisedModel = self.__models[ci][cj]
+                    ci, cj = self._categories[i], self._categories[j]
+                    model: SupervisedModel = self._models[ci][cj]
                     y_pred = model.predict(x)
                     # Recover from masked value
                     vote_i = y_pred[y_pred == 1]
@@ -77,8 +75,8 @@ class MultiClassifier(SupervisedModel):
                     vote_bins[:, i] += vote_i
                     vote_bins[:, j] += vote_j
             # Predictions depends on max votes for each sample
-            label_pred = self.__categories[np.argmax(vote_bins, axis=1)]
-        elif self.__option == MULTICLS.ONE_VERSUS_REST:
+            label_pred = self._categories[np.argmax(vote_bins, axis=1)]
+        elif self._option == MULTICLS.ONE_VERSUS_REST:
             # One-vs-Rest:
             # Needs to implement confidence in base classifiers...
             raise NotImplementedError()

@@ -9,7 +9,7 @@
 ## Requirements
 
 - python==3.6.8
-- numpy==1.15.4
+- numpy==1.17.0
 - scipy==1.2.1
 
 ## Structure
@@ -25,17 +25,10 @@
 │   └── _fully_connect.py
 ├── supervised
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   └── __init__.cpython-36.pyc
 │   ├── _base.py
 │   ├── bayes
 │   │   ├── __init__.py
 │   │   └── _bayes.py
-│   ├── ensemble
-│   │   ├── __init__.py
-│   │   ├── _adaboost.py
-│   │   ├── _multi_classifier.py
-│   │   └── _random_forest.py
 │   ├── knn
 │   │   ├── __init__.py
 │   │   └── _k_nearest.py
@@ -44,13 +37,18 @@
 │   │   ├── _base.py
 │   │   ├── _linear_regression.py
 │   │   ├── _logistic_regression.py
+│   │   ├── _multi_classifier.py
 │   │   ├── _perceptron.py
 │   │   ├── _regularization.py
 │   │   └── _support_vector_machine.py
 │   └── tree
 │       ├── __init__.py
-│       ├── _tree_cart.py
-│       └── _tree_id3.py
+│       ├── _cart.py
+│       ├── _id3.py
+│       └── ensemble
+│           ├── __init__.py
+│           ├── _adaboost.py
+│           └── _random_forest.py
 ├── test
 │   ├── nn_models
 │   │   └── fcnn.py
@@ -68,8 +66,6 @@
 │       └── _pca.py
 └── utils
     ├── __init__.py
-    ├── __pycache__
-    │   └── __init__.cpython-36.pyc
     ├── _batch.py
     ├── _cross_validate.py
     ├── _make_data.py
@@ -104,13 +100,8 @@
   - [x] Criterion
   - [x] Fully Connected Layer
   - [x] Fully Connected Neural Network Model
-- 8.17
+- 8.17-8.18
   - [x] Improve project structure
-  - [ ] Decision Tree(CART)
-  - [ ] Random Forest
-  - [ ] Adaboost
-
-## TODO️
-
-- [ ] Some codes lacks **TESTING**!!!
-- [ ] Finish ensemble、nn parts...
+  - [x] Decision Tree(CART)
+  - [x] Random Forest
+  - [x] Adaboost

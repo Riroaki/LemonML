@@ -28,7 +28,7 @@ class CART(SupervisedModel):
         # Minimum count for splitting node
         self._thres_count = 2
         # Alpha in calculating loss of tree
-        self._loss_alpha = 10.
+        self._alpha = 10.
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
         n, p = x.shape
@@ -178,5 +178,5 @@ class CART(SupervisedModel):
                 else:
                     tmp.append(node.left_child)
                     tmp.append(node.right_child)
-        loss += self._loss_alpha * num_leaf
+        loss += self._alpha * num_leaf
         return loss
