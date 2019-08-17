@@ -71,8 +71,8 @@ class ID3(SupervisedModel):
         is_used = [False for _ in range(p)]
         self._tree = self._build_tree(x, label, is_used)
         # Pruning
-        if 'pruning' in kwargs and kwargs['pruning'] is True:
-            self.prune()
+        if kwargs.get('pruning', False):
+            self._pruning(x, label)
         # Calculate train loss
         loss = self._tree.loss
         return loss
@@ -97,12 +97,9 @@ class ID3(SupervisedModel):
         precision = np.count_nonzero(label == label_pred) / label.shape[0]
         return precision, loss
 
-    def prune(self) -> float:
-        # Use post pruning, prune after tree is build.
-        # Tend to choose simple model with large alpha
-        assert self._tree is not None
-        # TODO: needs to update loss each time we prune
-        return self._tree.loss
+    def _pruning(self, x: np.ndarray, y: np.ndarray) -> float:
+        # TODO: pruning on curreng tree.
+        pass
 
     def _build_tree(self, x: np.ndarray, label: np.ndarray,
                     is_used: list) -> ID3Node:
@@ -143,7 +140,7 @@ class ID3(SupervisedModel):
         """Calculate information entropy for a sequence."""
         cls, count = np.unique(label, return_counts=True)
         count /= label.shape[0]
-        entropy = np.float(-np.sum(count * np.log(count) / np.log(2)))
+        entropy = float(-np.sum(count * np.log(count) / np.log(2)))
         return entropy
 
     def _info_gain(self, data: np.ndarray, label: np.ndarray,
