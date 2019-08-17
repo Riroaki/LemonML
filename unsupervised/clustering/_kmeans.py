@@ -67,7 +67,7 @@ class KMeans(ClusteringModel):
 
     @staticmethod
     def __calc_dist_sum(x: np.ndarray, assign: np.ndarray,
-                        centeroids: np.ndarray) -> np.float:
+                        centeroids: np.ndarray) -> float:
         dist_sum = 0
         k = centeroids.shape[0]
         for i in range(k):
