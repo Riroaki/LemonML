@@ -1,5 +1,5 @@
 import numpy as np
-from supervised._base import SupervisedModel
+from .._base import SupervisedModel
 
 
 class Bayes(SupervisedModel):
@@ -15,7 +15,7 @@ class Bayes(SupervisedModel):
         self._cov_all = None
         self._p = None
 
-    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         assert x.shape[0] == label.shape[0]
         n, p = x.shape
         if self._mean_dict is None or self._cov_dict is None \
@@ -74,7 +74,7 @@ class Bayes(SupervisedModel):
         assert x.shape[0] == label.shape[0]
         pred_label = self.predict(x, **kwargs)
         # Calculate 0-1 loss
-        loss = np.count_nonzero(pred_label - label)
+        loss = np.count_nonzero(pred_label != label)
         # Use loss to calculate precision
         precision = 1 - loss / x.shape[0]
         return precision, loss
@@ -88,7 +88,7 @@ class Bayes(SupervisedModel):
         return mean, cov
 
     @staticmethod
-    def _posterior_gaussian(x: np.ndarray, prior: np.float,
+    def _posterior_gaussian(x: np.ndarray, prior: float,
                             mean: np.ndarray, cov: np.ndarray) -> np.ndarray:
         """Calculate posterior probability P(wi | x)."""
 
@@ -100,7 +100,7 @@ class Bayes(SupervisedModel):
         inv = np.linalg.pinv(cov)
         # Get exponent for xj (0 < j < n)
         exponents = np.apply_along_axis(
-            lambda row: np.float(np.matmul(row, inv).dot(row)), 1, diff)
+            lambda row: float(np.matmul(row, inv).dot(row)), 1, diff)
         likelihood = coef * np.exp(-0.5 * exponents)
         # Posterior = prior * likelihood / evidence (omitted)
         posterior = prior * likelihood

@@ -28,7 +28,7 @@ class LinearModel(SupervisedModel, ABC):
         self._optimum = {'loss': np.inf,
                          'w': None, 'b': None}
 
-    def _update_model(self, loss: np.float):
+    def _update_model(self, loss: float):
         """Update model when current loss is smaller
         than that of optimal one."""
         if loss < self._optimum['loss']:
@@ -48,7 +48,7 @@ class LinearModel(SupervisedModel, ABC):
     @staticmethod
     @abstractmethod
     def _predict_value(x: np.ndarray, w: np.ndarray,
-                       b: np.float) -> np.ndarray:
+                       b: float) -> np.ndarray:
         """Calculate values of prediction using y = wx + b.
         Logistic regression uses sigmoid(wx + b).
 
@@ -68,7 +68,7 @@ class LinearModel(SupervisedModel, ABC):
 
     @staticmethod
     @abstractmethod
-    def _loss(pred_val: np.ndarray, true_val: np.ndarray) -> np.float:
+    def _loss(pred_val: np.ndarray, true_val: np.ndarray) -> float:
         """Calculate loss value of predictions.
 
         :param pred_val: prediction values

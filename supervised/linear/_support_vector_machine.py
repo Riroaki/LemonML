@@ -9,7 +9,7 @@ class SVM(LinearModel):
     def __init__(self):
         super().__init__()
 
-    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         # Target and constraint functions
         def target(w):
             return w[1:].dot(w[1:])
@@ -92,13 +92,13 @@ class SVM(LinearModel):
         pred_val = self._predict_value(x, self._optimum['w'],
                                        self._optimum['b'])
         pred_label = self._predict_label(pred_val)
-        precision = 1 - np.count_nonzero(pred_label - label) / x.shape[0]
+        precision = np.count_nonzero(pred_label != label) / x.shape[0]
         loss = self._loss(pred_val, label)
         return precision, loss
 
     @staticmethod
     def _predict_value(x: np.ndarray, w: np.ndarray,
-                       b: np.float) -> np.ndarray:
+                       b: float) -> np.ndarray:
         pred_val = np.matmul(x, w) + b
         return pred_val
 
@@ -109,7 +109,7 @@ class SVM(LinearModel):
         return pred_label
 
     @staticmethod
-    def _loss(pred_val: np.ndarray, true_label: np.ndarray) -> np.float:
+    def _loss(pred_val: np.ndarray, true_label: np.ndarray) -> float:
         # Hinge loss
         loss = 1 - pred_val * true_label
         loss[loss < 0] = 0

@@ -11,7 +11,7 @@ class SupervisedModel(ABC):
     """
 
     @abstractmethod
-    def fit(self, x: np.ndarray, y: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, y: np.ndarray, **kwargs) -> float:
         """Train model and update model using gradient descent.
         Should preserve optimum model after loss is calculated.
 

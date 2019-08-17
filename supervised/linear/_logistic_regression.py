@@ -14,7 +14,7 @@ class LogisticRegression(LinearModel):
         else:
             self._regular = None
 
-    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         # Check labels: only containing 1 and 0
         assert np.array_equal(np.unique(label), np.array([0, 1]))
         assert x.shape[0] == label.shape[0]
@@ -58,19 +58,19 @@ class LogisticRegression(LinearModel):
         pred_val = self._predict_value(x, self._optimum['w'],
                                        self._optimum['b'])
         pred_label = self._predict_label(pred_val)
-        precision = 1 - np.count_nonzero(pred_label - label) / x.shape[0]
+        precision = np.count_nonzero(pred_label != label) / x.shape[0]
         loss = self._loss(pred_val, label)
         return precision, loss
 
     @staticmethod
     def _predict_value(x: np.ndarray, w: np.ndarray,
-                       b: np.float) -> np.ndarray:
-        def __sigmoid(raw: np.ndarray) -> np.ndarray:
+                       b: float) -> np.ndarray:
+        def _sigmoid(raw: np.ndarray) -> np.ndarray:
             res = 1 / (1 + np.exp(-raw))
             return res
 
         prob = np.matmul(x, w) + b
-        pred_val = __sigmoid(prob)
+        pred_val = _sigmoid(prob)
         return pred_val
 
     @staticmethod
@@ -81,7 +81,7 @@ class LogisticRegression(LinearModel):
         return pred_label
 
     # @staticmethod
-    def _loss(self, pred_val: np.ndarray, true_label: np.ndarray) -> np.float:
+    def _loss(self, pred_val: np.ndarray, true_label: np.ndarray) -> float:
         # Use maximum likelihood (log-likelihood loss)
         # loss = 1 / n * (-y * log(wx + b) - (1 - y) * log(wx + b))
         # Here we need to care about the log zero and overflow warning...

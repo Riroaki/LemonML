@@ -10,7 +10,7 @@ class KNearest(SupervisedModel):
         self._data = None
         self._label = None
 
-    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.int:
+    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> int:
         # Lazy training for knn, no computations
         self._data = x
         self._label = label

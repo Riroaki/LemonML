@@ -14,7 +14,7 @@ class LinearRegression(LinearModel):
         else:
             self._regular = None
 
-    def fit(self, x: np.ndarray, y: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, y: np.ndarray, **kwargs) -> float:
         assert x.shape[0] == y.shape[0]
         n, p = x.shape
         if self._w is None or self._b is None or self._w.shape[0] != p:
@@ -42,7 +42,7 @@ class LinearRegression(LinearModel):
         self._update_model(loss)
         return loss
 
-    def fit_norm_eq(self, x: np.ndarray, y: np.ndarray) -> np.float:
+    def fit_norm_eq(self, x: np.ndarray, y: np.ndarray) -> float:
         # Fit x using normal equation
         assert x.shape[0] == y.shape[0]
         n, p = x.shape
@@ -79,7 +79,7 @@ class LinearRegression(LinearModel):
 
     @staticmethod
     def _predict_value(x: np.ndarray, w: np.ndarray,
-                       b: np.float) -> np.ndarray:
+                       b: float) -> np.ndarray:
         pred_val = np.matmul(x, w) + b
         return pred_val
 
@@ -88,7 +88,7 @@ class LinearRegression(LinearModel):
         # NO labeling in regression.
         pass
 
-    def _loss(self, pred_val: np.ndarray, true_val: np.ndarray) -> np.float:
+    def _loss(self, pred_val: np.ndarray, true_val: np.ndarray) -> float:
         # Use MSE loss
         loss = float(np.sum(np.power(pred_val - true_val, 2)))
         loss /= 2 * true_val.shape[0]
