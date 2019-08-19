@@ -30,7 +30,7 @@ class CART(SupervisedModel):
         # Alpha in calculating loss of tree
         self._alpha = 10.
 
-    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> np.float:
+    def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         n, p = x.shape
         assert n == label.shape[0]
         # Record whether each attributes is discrete
@@ -72,6 +72,7 @@ class CART(SupervisedModel):
                     if data[col] <= node.value:
                         node = node.left_child
                         node = node.right_child
+            # Add predicting result
             pred_label.append(node.cls)
         return np.array(pred_label)
 
