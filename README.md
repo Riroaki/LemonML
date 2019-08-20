@@ -100,7 +100,7 @@
   - [x] Criterion
   - [x] Fully Connected Layer
   - [x] Fully Connected Neural Network Model
-- 8.17-8.18
+- 8.17-8.20
   - [x] Improve project structure
   - [x] Decision Tree(CART)
   - [x] Random Forest

@@ -1,3 +1,4 @@
+import sys
 from collections import Counter
 from scipy import stats
 import numpy as np
@@ -11,9 +12,10 @@ class CARTNode(object):
         self.col_index = col_index
         self.is_discrete = is_discrete
         self.value = value
+        # Children
         self.left_child = None
         self.right_child = None
-        # Leaf node: class
+        # Leaf node: label info
         self.is_leaf = False
         self.cls = None
         self.labels = None
@@ -29,6 +31,8 @@ class CART(SupervisedModel):
         self._thres_count = 2
         # Alpha in calculating loss of tree
         self._alpha = 10.
+        # Default depth of tree: unlimited
+        self._depth = sys.maxsize
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
         n, p = x.shape
@@ -44,9 +48,11 @@ class CART(SupervisedModel):
                 # Check whether column is discrete type
                 if not isinstance(value, (int, float)):
                     is_discrete[index] = True
+        # Build a tree with certain level
+        self._depth = kwargs.get('depth', self._depth)
 
         self._is_discrete = is_discrete
-        self._tree = self._build_tree(x, label)
+        self._tree = self._build_tree(x, label, current_depth=0)
         # Whether do pruning
         if kwargs.get('pruning', False):
             self._pruning(x, label)
@@ -85,12 +91,15 @@ class CART(SupervisedModel):
         precision = 1 - loss / x.shape[0]
         return precision, loss
 
-    def _build_tree(self, x: np.ndarray, label: np.ndarray) -> CARTNode:
+    def _build_tree(self, x: np.ndarray, label: np.ndarray,
+                    current_depth: int) -> CARTNode:
         # Find best node for seperating
         n, p = x.shape
         # Build CART tree for classification
-        if len(np.unique(label)) == 1 or n < self._thres_count:
-            # Too few data points: just build leaf node
+        if len(np.unique(label)) == 1 or n < self._thres_count \
+                or current_depth > self._depth:
+            # Too few data points, or depth of tree exceeds requirement,
+            # just build leaf node and stop recursion.
             root = CARTNode(-1, False, None)
             root.is_leaf = True
             root.cls = stats.mode(label)
@@ -125,13 +134,14 @@ class CART(SupervisedModel):
             # Create root node
             root = CARTNode(best_col, self._is_discrete[best_col], best_value)
             # Recursively build subtrees
+            depth = current_depth + 1
             rows1, rows2 = self._split_data(x, best_col, best_value)
-            root.left_child = self._build_tree(x[rows1], label[rows1])
-            root.right_child = self._build_tree(x[rows2], label[rows2])
+            root.left_child = self._build_tree(x[rows1], label[rows1], depth)
+            root.right_child = self._build_tree(x[rows2], label[rows2], depth)
         return root
 
     def _pruning(self, x: np.ndarray, label: np.ndarray) -> None:
-        # TODO: pruning on current tree.
+        # TODO: pruning on current tree using dynamic programming.
         pass
 
     @staticmethod

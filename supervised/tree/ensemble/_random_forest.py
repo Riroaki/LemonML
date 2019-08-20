@@ -10,11 +10,14 @@ class RandomForest(SupervisedModel):
 
     def __init__(self):
         self._trees = []
+        # Default number of trees, number of samples
+        self._num_trees = 10
 
     def fit(self, x: np.ndarray, label: np.ndarray, **kwargs) -> float:
+        assert x.shape[0] == label.shape[0]
         n, p = x.shape
         # Number of trees and number of samples in training each tree
-        num_trees = kwargs.get('num_trees', 10)
+        self._num_trees = kwargs.get('num_trees', self._num_trees)
         num_samples = kwargs.get('num_samples', n // 2)
         # Number of attributes: sqrt(p)
         num_attrs = int(np.sqrt(p))
@@ -23,7 +26,7 @@ class RandomForest(SupervisedModel):
         attr_index = list(range(p))
         # Record loss
         loss = 0
-        for i in range(num_trees):
+        for i in range(self._num_trees):
             # Sample with replacement
             sample_index = np.array(random.choices(row_index, k=num_samples))
             sample_x, sample_label = x[sample_index], label[sample_index]
