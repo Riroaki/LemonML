@@ -105,3 +105,5 @@
   - [x] Decision Tree(CART)
   - [x] Random Forest
   - [x] Adaboost
+- 8.23
+  - [x] Hidden Markov Model
