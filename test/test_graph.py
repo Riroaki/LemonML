@@ -23,7 +23,7 @@ def gen(n: int):
 def test_hmm(train_size: int, test_size: int):
     # Test hidden Markov model
     # Train model
-    model = graph.HiddenMarkov()
+    model = graph.HMM()
     train_states, train_observations = gen(train_size)
     model.fit_supervised(train_observations, train_states)
     # Test model

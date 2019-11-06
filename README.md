@@ -4,25 +4,35 @@
 > 
 > Implemented with numpy and scipy in python codes.
 > 
-> For more information, please refer to [my blog](https://riroaki.github.io/categories/机器学不动了/)
+> Also includes a simple version of autogradable Tensor.
+> 
+> For more information, please refer to [my blog](https://riroaki.github.io/categories/机器学不动了/).
 
 ## Requirements
 
-- python==3.6.8
+- python==3.6
 - numpy==1.17.0
 - scipy==1.2.1
+- torch==1.3.0
 
 ## Structure
 ```
 .
 ├── LICENSE
 ├── README.md
+├── graph
+│   ├── __init__.py
+│   ├── _conditional_random_field.py
+│   └── _hidden_markov.py
 ├── nn
 │   ├── __init__.py
 │   ├── _activation.py
 │   ├── _base.py
 │   ├── _criterion.py
-│   └── _fully_connect.py
+│   ├── _fully_connect.py
+│   └── autograd
+│       ├── __init__.py
+│       └── tensor.py
 ├── supervised
 │   ├── __init__.py
 │   ├── _base.py
@@ -47,11 +57,12 @@
 │       ├── _id3.py
 │       └── ensemble
 │           ├── __init__.py
-│           ├── _adaboost.py
+│           ├── _adaptive_boosting.py
 │           └── _random_forest.py
 ├── test
 │   ├── nn_models
 │   │   └── fcnn.py
+│   ├── test_graph.py
 │   └── test_supervised.py
 ├── unsupervised
 │   ├── __init__.py
@@ -107,3 +118,6 @@
   - [x] Adaboost
 - 8.23
   - [x] Hidden Markov Model
+- 11.6
+  - [x] Conditional Random Field Model(Based on `Torch`)
+  - [x] Autograd Tensor

@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class HiddenMarkov(object):
+class HMM(object):
     """Hidden Markov model."""
 
     def __init__(self):
